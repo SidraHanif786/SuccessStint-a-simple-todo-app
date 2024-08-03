@@ -13,7 +13,6 @@ const DeleteBlock = ({ id }) => {
       setCurrentUrl(fullUrl);
     }
   }, []);
-  console.log(currentUrl);
 
   const router = useRouter();
   const deleteTicket = async () => {

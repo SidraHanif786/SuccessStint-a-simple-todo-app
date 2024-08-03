@@ -12,7 +12,7 @@ const getTicketById = async (id) => {
 
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.log("Error in getting ticket");
   }
 };
 

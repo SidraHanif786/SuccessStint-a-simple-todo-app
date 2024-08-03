@@ -10,13 +10,17 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Project",
-  description: "Creating a functional ticketing system.",
+  title: "SuccessStint",
+  description: "A simple to-do app for efficient project management.",
+  icons: {
+    icon: "/up.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/up.svg" type="image/svg+xml" />
       <body className={inter.className}>
         <div className="flex flex-col h-screen max-h-screen">
           <Nav />

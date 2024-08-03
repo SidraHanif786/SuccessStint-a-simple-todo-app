@@ -2,7 +2,6 @@ import React from "react";
 import TicketCard from "./(components)/TicketCard";
 
 const getTickets = async () => {
-  console.log(process.env.APP_URL);
   try {
     const res = await fetch(`${process.env.APP_URL}api/Tickets`, {
       cache: "no-store",
@@ -14,7 +13,7 @@ const getTickets = async () => {
 
     return res.json();
   } catch (error) {
-    console.log("Error loading topics: ", error);
+    console.log("Error loading topics: ");
   }
 };
 

@@ -56,7 +56,6 @@ const EditTicketForm = ({ ticket }) => {
         //@ts-ignore
         "Content-Type": "application/json",
       });
-      console.log("========", res);
       if (!res.ok) {
         throw new Error("Failed to create ticket");
       }
