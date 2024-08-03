@@ -1,10 +1,10 @@
-import TicketCard from "@/components/TicketCard";
-import Image from "next/image";
-
+import React from "react";
+import TicketCard from "./(components)/TicketCard";
 
 const getTickets = async () => {
+  console.log(process.env.APP_URL);
   try {
-    const res = await fetch("http://localhost:3000/api/Tickets", {
+    const res = await fetch(`${process.env.APP_URL}api/Tickets`, {
       cache: "no-store",
     });
 
@@ -18,12 +18,12 @@ const getTickets = async () => {
   }
 };
 
-export default async function Home() {
+const Dashboard = async () => {
   const data = await getTickets();
-
+  
   // Make sure we have tickets needed for production build.
-  if (!data?.tickets) {
-    return <p>No tickets.</p>;
+  if (!data?.tickets.length >= 1) {
+    return <p className="flex items-center justify-center py-8">No tickets.</p>;
   }
 
   const tickets = data.tickets;
@@ -39,7 +39,7 @@ export default async function Home() {
           uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
               <h2>{uniqueCategory}</h2>
-              <div className="lg:grid grid-cols-2 xl:grid-cols-4 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xxl:grid-cols-4 ">
                 {tickets
                   .filter((ticket) => ticket.category === uniqueCategory)
                   .map((filteredTicket, _index) => (
@@ -55,4 +55,6 @@ export default async function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

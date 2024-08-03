@@ -24,17 +24,17 @@ const TicketCard = ({ ticket }) => {
   const createdDateTime = formatTimestamp(ticket.createdAt);
 
   return (
-    <div className="flex flex-col hover:bg-card-hover bg-card rounded-md shadow-lg p-3 m-2">
-      <div className="flex mb-3">
+    <div className="ticket group flex flex-col hover:bg-card-hover bg-card rounded-md shadow-lg p-3 m-2">
+      <div className="flex pb-3 items-center justify-between ">
         <PriorityDisplay priority={ticket.priority} />
-        <div className="ml-auto">
+        <div className=" hidden group-hover:block">
           <DeleteBlock id={ticket._id} />
         </div>
       </div>
       <Link href={`/TicketPage/${ticket._id}`} style={{ display: "contents" }}>
-        <h4 className="mb-1">{ticket.title}</h4>
-        <hr className="h-px  border-0 bg-page mb-2 "></hr>
-        <p className="whitespace-pre-wrap">{ticket.description}</p>
+        <h4 className="mb-2 ">{ticket.title}</h4>
+
+        <p className="whitespace-pre-wrap mb-3">{ticket.description}</p>
 
         <div className="flex-grow"></div>
         <div className="flex mt-2">

@@ -1,16 +1,29 @@
-import Ticket from "@/models/Ticket";
-import { connectToMongo } from "@/lib/mongo";
-import mongoose from "mongoose";
+import Ticket from "@/app/models/Ticket";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    await connectToMongo()
-    const tickets = await Ticket.find();
-    await mongoose.connection.close()
+    const tickets = await Ticket.aggregate([
+      {
+        $sort: { category: 1, priority: 1 }, // Sort by category first, then by priority
+      },
+      {
+        $group: {
+          _id: '$category', // Group by category
+          tickets: { $push: '$$ROOT' }, // Push the entire ticket document into an array
+        },
+      },
+      {
+        $unwind: '$tickets', // Unwind the array back into individual documents
+      },
+      {
+        $replaceRoot: { newRoot: '$tickets' }, // Replace the root with the ticket documents
+      },
+    ]);
+
     return NextResponse.json({ tickets }, { status: 200 });
   } catch (err) {
-    await mongoose.connection.close()
+    console.log(err);
     return NextResponse.json({ message: "Error", err }, { status: 500 });
   }
 }
@@ -18,18 +31,14 @@ export async function GET() {
 export async function POST(req) {
   try {
     const body = await req.json();
-    await connectToMongo()
-    console.log(body)
     const ticketData = body.formData;
-
-    const result = await Ticket.create(ticketData);
-    console.log("====result of post=======",result)
-    await mongoose.connection.close()
-    return NextResponse.json({ message: "Ticket Created" }, { status: 201 });
     
+    const result = await Ticket.create(ticketData);
+    
+    console.log("======result==", result)
+    return NextResponse.json({ message: "Ticket Created" }, { status: 201 });
   } catch (err) {
-    console.log("=====error in post =======",err);
-    await mongoose.connection.close()
+    console.log("error===============",err);
     return NextResponse.json({ message: "Error", err }, { status: 500 });
   }
 }

@@ -3,7 +3,7 @@ const StatusDisplay = ({ status }) => {
     let color;
     switch (status.toLowerCase()) {
       case "done":
-        color = "bg-green-200";
+        color = "bg-green-300";
         return color;
 
       case "started":
@@ -11,7 +11,7 @@ const StatusDisplay = ({ status }) => {
         return color;
 
       case "not started":
-        color = "bg-red-200";
+        color = "bg-red-300";
         return color;
       default:
         color = "bg-slate-700";

@@ -11,7 +11,7 @@ const EditTicketForm = ({ ticket }) => {
     priority: 1,
     progress: 0,
     status: "not started",
-    category: "Hardware Problem",
+    category: "Work",
   };
 
   if (EDITMODE) {
@@ -56,7 +56,7 @@ const EditTicketForm = ({ ticket }) => {
         //@ts-ignore
         "Content-Type": "application/json",
       });
-      console.log("========", res)
+      console.log("========", res);
       if (!res.ok) {
         throw new Error("Failed to create ticket");
       }
@@ -66,12 +66,7 @@ const EditTicketForm = ({ ticket }) => {
     router.push("/");
   };
 
-  const categories = [
-    "Hardware Problem",
-    "Software Problem",
-    "Application Deveopment",
-    "Project",
-  ];
+  const categories = ["Work", "Home", "Office", "Projects"];
 
   return (
     <div className=" flex justify-center">
